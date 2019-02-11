@@ -1,28 +1,47 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import AppBar from './components/AppBar';
+import Menu from './components/Menu';
+import List from './components/List';
+import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import { fireMeUp } from 'rdx/actions/App'
+const styles = theme => ({
+	contentWrapper: {
+		position: 'absolute',
+		width: '100%',
+		height: '100%'
+	},
+	menu: {
+		width: '250px',
+		height: '100%',
+		float: 'left'
+	},
+	list : {
+		float: 'left',
+		width: 'calc(100% - 250px)'
+	}
+})
+
 
 class App extends Component {
+
+	componentWillMount() {
+		const { dispatch } = this.props;
+		dispatch(fireMeUp())
+	}
+
   render() {
+	  const { classes } = this.props; 
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+       	<AppBar /> 
+			<div className={classes.contentWrapper}>
+			<Menu className={classes.menu} />
+			<List className={classes.list} />
+		</div>
       </div>
     );
   }
 }
 
-export default App;
+export default connect((state) => state)(withStyles(styles)(App));
