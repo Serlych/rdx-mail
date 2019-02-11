@@ -85,6 +85,7 @@ const styles = theme => ({
 });
 
 class PrimarySearchAppBar extends React.Component {
+  
   state = {
     anchorEl: null,
     mobileMoreAnchorEl: null
@@ -159,7 +160,7 @@ class PrimarySearchAppBar extends React.Component {
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
               <IconButton color="inherit">
-                <Badge badgeContent={4} color="secondary">
+                <Badge badgeContent={this.props.unreadEmails.length} color="secondary">
                   <MailIcon />
                 </Badge>
               </IconButton>
